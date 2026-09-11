@@ -165,9 +165,7 @@ function RevealSeedPage() {
   // Only Block triggers the malicious warning. Warn and None show the generic warning.
   const isMalicious = scanResult?.recommendedAction === RecommendedAction.Block;
 
-  const [, copyToClipboard] = useCopyToClipboard({
-    clearDelayMs: MINUTE,
-  });
+  const [, copyToClipboard] = useCopyToClipboard();
 
   const onClickCopy = useCallback(() => {
     if (!seedWords || !phraseRevealed) {
