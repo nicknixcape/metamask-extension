@@ -33,6 +33,7 @@ import { useAnalytics } from '../../hooks/useAnalytics';
 import ZENDESK_URLS from '../../helpers/constants/zendesk-url';
 import { useI18nContext } from '../../hooks/useI18nContext';
 import { useCopyToClipboard } from '../../hooks/useCopyToClipboard';
+import { SensitiveClipboardCleanup } from '../../components/ui/sensitive-clipboard-cleanup/sensitive-clipboard-cleanup';
 import {
   requestRevealSeedWords,
   scanUrlForPhishing,
@@ -164,13 +165,20 @@ function RevealSeedPage() {
   // Only Block triggers the malicious warning. Warn and None show the generic warning.
   const isMalicious = scanResult?.recommendedAction === RecommendedAction.Block;
 
-  const [, copyToClipboard] = useCopyToClipboard();
+  const [, copyToClipboard, , sensitiveClipboard] = useCopyToClipboard({
+    sensitive: true,
+  });
 
-  const onClickCopy = useCallback(() => {
+  const onClickCopy = useCallback(async () => {
     if (!seedWords || !phraseRevealed) {
       return;
     }
-    copyToClipboard(seedWords);
+
+    const copied = await copyToClipboard(seedWords);
+    if (!copied) {
+      return;
+    }
+
     setShowSuccessToast(true);
     trackEvent(
       createEventBuilder(MetaMetricsEventName.KeyExportCopied)
@@ -636,6 +644,12 @@ function RevealSeedPage() {
         </>
       )}
       {renderContent()}
+      {screen === REVEAL_SEED_SCREEN ? (
+        <SensitiveClipboardCleanup
+          state={sensitiveClipboard.state}
+          onClear={sensitiveClipboard.clear}
+        />
+      ) : null}
       {showSuccessToast && (
         <ToastContainer>
           <Toast
