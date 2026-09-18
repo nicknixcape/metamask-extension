@@ -74,16 +74,23 @@ export function useCopyToClipboard(
     setCopied(false);
   }, []);
 
+  const resetSensitiveClipboardState = useTimeout(
+    () => setSensitiveClipboardState('idle'),
+    DEFAULT_UI_DELAY,
+    false,
+  );
+
   const clearSensitiveClipboard = useCallback(async () => {
     try {
       await globalThis.navigator.clipboard.writeText('');
       setSensitiveClipboardState('cleared');
+      resetSensitiveClipboardState?.();
       return true;
     } catch {
       setSensitiveClipboardState('error');
       return false;
     }
-  }, []);
+  }, [resetSensitiveClipboardState]);
 
   if (isSensitive) {
     return [

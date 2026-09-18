@@ -50,7 +50,6 @@ import {
 } from '../../helpers/constants/routes';
 import { PasskeyVerification } from '../../components/app/passkey-verification';
 import { useBoolean } from '../../hooks/useBoolean';
-import { Toast, ToastContainer } from '../../components/multichain/toast';
 import { useDispatch } from '../../store/hooks';
 import { usePasskeySeedPhraseExport } from '../../hooks/passkey/usePasskeySeedPhraseExport';
 import type { RevealSeedScreen, RevealSeedLocationState } from './types';
@@ -99,8 +98,6 @@ function RevealSeedPage() {
   const srpViewEventTrackedRef = useRef(false);
   const { value: showPassword, toggle } = useBoolean();
   const [phraseRevealed, setPhraseRevealed] = useState(false);
-
-  const [showSuccessToast, setShowSuccessToast] = useState(false);
 
   const activeTabOrigin = useSelector(getOriginOfCurrentTab);
   const [scanResult, setScanResult] =
@@ -179,7 +176,6 @@ function RevealSeedPage() {
       return;
     }
 
-    setShowSuccessToast(true);
     trackEvent(
       createEventBuilder(MetaMetricsEventName.KeyExportCopied)
         .addCategory(MetaMetricsEventCategory.Keys)
@@ -599,6 +595,10 @@ function RevealSeedPage() {
           phraseRevealed={phraseRevealed}
           onRevealPhrase={handleRevealPhrase}
           onCopy={onClickCopy}
+          copied={
+            sensitiveClipboard.state === 'ready' ||
+            sensitiveClipboard.state === 'error'
+          }
           onTabClick={handleTabClick}
         />
       );
@@ -650,18 +650,6 @@ function RevealSeedPage() {
           onClear={sensitiveClipboard.clear}
         />
       ) : null}
-      {showSuccessToast && (
-        <ToastContainer>
-          <Toast
-            startAdornment={null}
-            text={t('copiedToClipboard')}
-            onClose={() => setShowSuccessToast(false)}
-            autoHideTime={5000}
-            onAutoHideToast={() => setShowSuccessToast(false)}
-            dataTestId="reveal-seed-copy-success-toast"
-          />
-        </ToastContainer>
-      )}
     </Box>
   );
 }

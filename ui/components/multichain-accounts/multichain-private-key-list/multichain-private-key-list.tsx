@@ -104,6 +104,9 @@ const MultichainPrivateKeyList = ({
   const [wrongPassword, setWrongPassword] = useState<boolean>(false);
   const [reveal, setReveal] = useState<boolean>(false);
   const [privateKeys, setPrivateKeys] = useState<Record<string, string>>({});
+  const [copiedPrivateKeyRow, setCopiedPrivateKeyRow] = useState<string | null>(
+    null,
+  );
 
   const isPasskeyActive = useIsPasskeyActive();
   const isPasskeyIncompatibleInSidepanel =
@@ -117,6 +120,7 @@ const MultichainPrivateKeyList = ({
 
   const cleanStateVariables = useCallback(() => {
     setPrivateKeys({});
+    setCopiedPrivateKeyRow(null);
     setPassword('');
     setWrongPassword(false);
     setReveal(false);
@@ -427,10 +431,12 @@ const MultichainPrivateKeyList = ({
       if (!privateKey) {
         return <></>;
       }
+      const rowId = `${item.account.address}-${item.scope}`;
 
       const handleCopyClick = async () => {
         const copied = await handleCopy(privateKey);
         if (copied) {
+          setCopiedPrivateKeyRow(rowId);
           trackEvent(
             createEventBuilder(MetaMetricsEventName.KeyExportCopied)
               .addCategory(MetaMetricsEventCategory.Keys)
@@ -449,23 +455,33 @@ const MultichainPrivateKeyList = ({
       };
 
       return (
-        <MultichainAddressRow
-          key={`${item.account.address}-${item.scope}-${index}`}
-          chainId={item.scope}
-          networkName={item.networkName}
-          address={item.account.address}
-          copyActionParams={{
-            message: t('multichainAccountPrivateKeyCopied'),
-            callback: handleCopyClick,
-          }}
-        />
+        // Keep the cleanup notice directly below the private key row it applies to.
+        <React.Fragment key={`${item.account.address}-${item.scope}-${index}`}>
+          <MultichainAddressRow
+            chainId={item.scope}
+            networkName={item.networkName}
+            address={item.account.address}
+            copyActionParams={{
+              message: t('multichainAccountPrivateKeyCopied'),
+              callback: handleCopyClick,
+            }}
+          />
+          {copiedPrivateKeyRow === rowId ? (
+            <SensitiveClipboardCleanup
+              state={sensitiveClipboard.state}
+              onClear={sensitiveClipboard.clear}
+            />
+          ) : null}
+        </React.Fragment>
       );
     },
     [
       createEventBuilder,
       handleCopy,
       hdEntropyIndex,
+      copiedPrivateKeyRow,
       privateKeys,
+      sensitiveClipboard,
       t,
       trackEvent,
     ],
@@ -508,12 +524,6 @@ const MultichainPrivateKeyList = ({
       data-testid="multichain-private-keyring-list"
     >
       {reveal ? renderedRows : renderUnrevealedContent()}
-      {reveal ? (
-        <SensitiveClipboardCleanup
-          state={sensitiveClipboard.state}
-          onClear={sensitiveClipboard.clear}
-        />
-      ) : null}
     </Box>
   );
 };
