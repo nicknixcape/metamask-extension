@@ -12,7 +12,11 @@ export const SnapUIBanner = ({
   title,
 }: React.PropsWithChildren<SnapUIBannerProps>) => {
   return (
-    <BannerAlert severity={severity} title={title}>
+    <BannerAlert
+      className="snap-ui-renderer__banner"
+      severity={severity}
+      title={title}
+    >
       {children}
     </BannerAlert>
   );

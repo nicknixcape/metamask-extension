@@ -61,6 +61,9 @@ export const Copyable = ({
     >
       <Box
         display={Display.Flex}
+        flexDirection={
+          sensitive && isVisible ? FlexDirection.Column : FlexDirection.Row
+        }
         onClick={
           sensitive && !isVisible ? handleVisibilityClick : handleCopyClick
         }
@@ -77,25 +80,39 @@ export const Copyable = ({
         borderRadius={BorderRadius.LG}
         padding={2}
       >
-        {sensitive && (
-          <Box marginRight={2} className="copyable__icon">
+        {sensitive && isVisible && (
+          <Box className="copyable__sensitive-controls">
             <Tooltip
               wrapperClassName="copyable__tooltip"
-              html={
-                <Text>
-                  {isVisible ? t('hideSentitiveInfo') : t('doNotShare')}
-                </Text>
-              }
+              html={<Text>{t('hideSentitiveInfo')}</Text>}
               position="bottom"
             >
               <Icon
-                name={isVisible ? IconName.EyeSlash : IconName.Eye}
+                name={IconName.EyeSlash}
                 onClick={handleVisibilityClick}
-                color={
-                  isVisible && sensitive
-                    ? Color.errorAlternative
-                    : IconColor.iconAlternative
-                }
+                color={Color.errorAlternative}
+                data-testid="reveal-icon"
+              />
+            </Tooltip>
+            <Icon
+              className="copyable__icon"
+              name={isClicked ? IconName.CopySuccess : IconName.Copy}
+              color={Color.errorAlternative}
+              data-testid="copy-icon"
+            />
+          </Box>
+        )}
+        {sensitive && !isVisible && (
+          <Box marginRight={2} className="copyable__icon">
+            <Tooltip
+              wrapperClassName="copyable__tooltip"
+              html={<Text>{t('doNotShare')}</Text>}
+              position="bottom"
+            >
+              <Icon
+                name={IconName.Eye}
+                onClick={handleVisibilityClick}
+                color={IconColor.iconAlternative}
                 data-testid="reveal-icon"
               />
             </Tooltip>
@@ -112,36 +129,39 @@ export const Copyable = ({
           </Text>
         )}
         {isVisible && (
-          <ShowMore
-            marginRight={2}
-            buttonBackground={
-              isVisible && sensitive
-                ? BackgroundColor.errorMuted
-                : BackgroundColor.backgroundAlternative
-            }
+          <Box
+            style={{
+              flex: 1,
+              minWidth: 0,
+            }}
           >
-            <Text
-              color={
+            <ShowMore
+              marginRight={2}
+              buttonBackground={
                 isVisible && sensitive
-                  ? Color.errorAlternative
-                  : TextColor.textAlternative
+                  ? BackgroundColor.errorMuted
+                  : BackgroundColor.backgroundAlternative
               }
-              marginBottom={0}
-              overflowWrap={OverflowWrap.Anywhere}
             >
-              {text}
-            </Text>
-          </ShowMore>
+              <Text
+                color={
+                  isVisible && sensitive
+                    ? Color.errorAlternative
+                    : TextColor.textAlternative
+                }
+                marginBottom={0}
+                overflowWrap={OverflowWrap.Anywhere}
+              >
+                {text}
+              </Text>
+            </ShowMore>
+          </Box>
         )}
-        {isVisible && (
+        {isVisible && !sensitive && (
           <Icon
             className="copyable__icon"
             name={isClicked ? IconName.CopySuccess : IconName.Copy}
-            color={
-              isVisible && sensitive
-                ? Color.errorAlternative
-                : IconColor.iconAlternative
-            }
+            color={IconColor.iconAlternative}
             marginLeft="auto"
             data-testid="copy-icon"
           />
