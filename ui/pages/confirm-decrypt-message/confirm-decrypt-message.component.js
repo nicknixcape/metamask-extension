@@ -195,8 +195,8 @@ const MessageBody = forwardRef(
     const [errorMessage, setErrorMessage] = useState('');
     const [hasCopied, copyToClipboard] = useCopyToClipboard();
 
-    const copyMessage = () => {
-      copyToClipboard(rawMessage);
+    const copyMessage = async () => {
+      await copyToClipboard(rawMessage);
       trackEvent(
         createEventBuilder('Copy')
           .addCategory(MetaMetricsEventCategory.Messages)

@@ -1,7 +1,7 @@
 import React from 'react';
 import configureMockStore from 'redux-mock-store';
 import { merge } from 'lodash';
-import { fireEvent, waitFor } from '@testing-library/react';
+import { act, fireEvent, waitFor } from '@testing-library/react';
 import mockState from '../../../test/data/mock-state.json';
 import { renderWithProvider } from '../../../test/lib/render-helpers-navigate';
 import { flushPromises } from '../../../test/lib/timer-helpers';
@@ -213,13 +213,13 @@ describe('ConfirmDecryptMessage Component', () => {
     const copyButton = getByTestId('message-copy');
     expect(copyButton).toBeInTheDocument();
 
-    fireEvent.click(copyButton);
-    await flushPromises();
+    await act(async () => {
+      fireEvent.click(copyButton);
+      await flushPromises();
+    });
     await waitFor(() => {
       expect(mockWriteText).toHaveBeenCalledWith(mockRawSignatureMessage);
     });
-    // Settle useCopyToClipboard's setCopied(true) from writeText().then(...)
-    await flushPromises();
     expect(mockTrackEvent).toHaveBeenCalled();
   });
 

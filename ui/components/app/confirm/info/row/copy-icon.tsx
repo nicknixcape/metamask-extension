@@ -8,7 +8,7 @@ import {
   IconName,
 } from '../../../../component-library';
 
-type CopyCallback = (text: string) => void;
+type CopyCallback = (text: string) => Promise<boolean>;
 
 export const CopyIcon = ({
   copyText,
@@ -29,7 +29,7 @@ export const CopyIcon = ({
       if (isStopPropagationEnabled) {
         event.stopPropagation();
       }
-      (handleCopy as CopyCallback)(copyText);
+      await (handleCopy as CopyCallback)(copyText);
     },
     [copyText, handleCopy, isStopPropagationEnabled],
   );
