@@ -90,6 +90,24 @@ describe('useCopyToClipboard', () => {
     expect(result.current[3].state).toBe('error');
   });
 
+  it('keeps cleanup available after copying again before cleared feedback expires', async () => {
+    const { result } = renderHook(() =>
+      useCopyToClipboard({ sensitive: true }),
+    );
+
+    await act(async () => {
+      await result.current[1]('first secret');
+      await result.current[3].clear();
+      await result.current[1]('second secret');
+    });
+
+    act(() => {
+      jest.advanceTimersByTime(DEFAULT_UI_DELAY + 1);
+    });
+
+    expect(result.current[3].state).toBe('ready');
+  });
+
   it('resets copied state when invoked', async () => {
     const { result } = renderHook(() => useCopyToClipboard());
     const [, handleCopy, resetCopyState] = result.current;

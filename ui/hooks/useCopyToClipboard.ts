@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { SECOND } from '../../shared/constants/time';
 import { useTimeout } from './useTimeout';
 
@@ -41,7 +41,22 @@ export function useCopyToClipboard(
   const [copied, setCopied] = useState<boolean>(false);
   const [sensitiveClipboardState, setSensitiveClipboardState] =
     useState<SensitiveClipboardState>('idle');
+  const sensitiveClipboardTimeoutRef = useRef<ReturnType<
+    typeof setTimeout
+  > | null>(null);
   const isSensitive = options?.sensitive === true;
+
+  const clearSensitiveClipboardTimeout = useCallback(() => {
+    if (sensitiveClipboardTimeoutRef.current) {
+      clearTimeout(sensitiveClipboardTimeoutRef.current);
+      sensitiveClipboardTimeoutRef.current = null;
+    }
+  }, []);
+
+  useEffect(
+    () => () => clearSensitiveClipboardTimeout(),
+    [clearSensitiveClipboardTimeout],
+  );
 
   const startTimeout = useTimeout(
     () => {
@@ -59,6 +74,7 @@ export function useCopyToClipboard(
         await globalThis.navigator.clipboard.writeText(text);
         setCopied(true);
         if (isSensitive) {
+          clearSensitiveClipboardTimeout();
           setSensitiveClipboardState('ready');
         }
         startTimeout?.();
@@ -67,30 +83,28 @@ export function useCopyToClipboard(
         return false;
       }
     },
-    [isSensitive, startTimeout],
+    [clearSensitiveClipboardTimeout, isSensitive, startTimeout],
   );
 
   const resetState = useCallback(() => {
     setCopied(false);
   }, []);
 
-  const resetSensitiveClipboardState = useTimeout(
-    () => setSensitiveClipboardState('idle'),
-    DEFAULT_UI_DELAY,
-    false,
-  );
-
   const clearSensitiveClipboard = useCallback(async () => {
     try {
       await globalThis.navigator.clipboard.writeText('');
+      clearSensitiveClipboardTimeout();
       setSensitiveClipboardState('cleared');
-      resetSensitiveClipboardState?.();
+      sensitiveClipboardTimeoutRef.current = setTimeout(() => {
+        setSensitiveClipboardState('idle');
+        sensitiveClipboardTimeoutRef.current = null;
+      }, DEFAULT_UI_DELAY);
       return true;
     } catch {
       setSensitiveClipboardState('error');
       return false;
     }
-  }, [resetSensitiveClipboardState]);
+  }, [clearSensitiveClipboardTimeout]);
 
   if (isSensitive) {
     return [
