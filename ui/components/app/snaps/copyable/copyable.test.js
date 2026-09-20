@@ -8,9 +8,12 @@ import { Copyable } from './copyable';
 jest.mock('../../../../hooks/useCopyToClipboard');
 
 describe('Copyable', () => {
-  const handleCopy = jest.fn().mockResolvedValue(true);
-  const sensitiveClipboard = { state: 'idle', clear: jest.fn() };
+  let handleCopy;
+  let sensitiveClipboard;
+
   beforeEach(() => {
+    handleCopy = jest.fn().mockResolvedValue(true);
+    sensitiveClipboard = { state: 'idle', clear: jest.fn() };
     useCopyToClipboard.mockReturnValue([
       false,
       handleCopy,
@@ -68,16 +71,28 @@ describe('Copyable', () => {
     });
   });
 
-  it('shows cleanup controls only for sensitive content after copying', () => {
-    sensitiveClipboard.state = 'ready';
-    const { getByTestId } = renderWithProvider(
+  it('shows cleanup controls after copying sensitive content', async () => {
+    const { getByTestId, unmount } = renderWithProvider(
       <Copyable text={value} sensitive />,
     );
 
     fireEvent.click(getByTestId('reveal-icon'));
-    fireEvent.click(getByTestId('clear-sensitive-clipboard'));
+    fireEvent.click(getByTestId('copy-icon'));
+
+    await waitFor(() => {
+      expect(handleCopy).toHaveBeenCalledWith(value);
+    });
+
+    sensitiveClipboard.state = 'ready';
+    unmount();
+
+    const { getByTestId: getByTestIdAfterCopy } = renderWithProvider(
+      <Copyable text={value} sensitive />,
+    );
+
+    fireEvent.click(getByTestIdAfterCopy('clear-sensitive-clipboard'));
 
     expect(sensitiveClipboard.clear).toHaveBeenCalledTimes(1);
-    expect(handleCopy).not.toHaveBeenCalled();
+    expect(handleCopy).toHaveBeenCalledTimes(1);
   });
 });
