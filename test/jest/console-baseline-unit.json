@@ -909,9 +909,6 @@
       "React: componentWill* lifecycle deprecations": 1,
       "error: Warning: React does not recognize": 1
     },
-    "ui/pages/srp-input-form/index.test.tsx": {
-      "React: Act warnings (component updates not wrapped)": 244
-    },
     "ui/pages/swaps/awaiting-signatures/awaiting-signatures.test.js": {
       "Reselect: Identity function warnings": 1
     },

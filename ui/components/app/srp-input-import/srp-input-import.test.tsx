@@ -1,6 +1,5 @@
 import React from 'react';
 import { fireEvent, waitFor } from '@testing-library/react';
-import { userEvent } from '@testing-library/user-event';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
 import * as browserRuntime from '../../../../shared/lib/browser-runtime.utils';
 import {
@@ -186,10 +185,15 @@ describe('SrpInputImport', () => {
       />,
     );
 
-    await userEvent.type(
-      getByTestId('srp-input-import__srp-note'),
-      TEST_SEED_PHRASE,
-    );
+    fireEvent.paste(getByTestId('srp-input-import__srp-note'), {
+      clipboardData: {
+        getData: () => TEST_SEED_PHRASE,
+      },
+    });
+
+    await waitFor(() => {
+      expect(getByText('Clear all')).toBeInTheDocument();
+    });
 
     expect(onClearClipboardRetry).not.toHaveBeenCalled();
 
