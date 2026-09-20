@@ -17,7 +17,7 @@ export const row: UIComponentFactory<RowElement> = ({
     variant: element.props.variant,
     tooltip: element.props.tooltip,
     style: {
-      // We do this to cause an overhang with certain confirmation row variants
+      // Warning text can wrap inside a scrollable flex panel, so retain its content height.
       ...(element.props.variant === 'warning'
         ? {
             flexDirection: FlexDirection.Column,
