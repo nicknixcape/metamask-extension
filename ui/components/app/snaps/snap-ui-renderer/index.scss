@@ -60,8 +60,6 @@
   }
 
   &__text {
-    overflow-wrap: anywhere;
-
     i {
       font-style: revert;
     }
@@ -74,11 +72,6 @@
       font-style: inherit;
       font-weight: inherit;
     }
-  }
-
-  &__banner {
-    height: auto;
-    min-height: max-content;
   }
 
   &__image {
