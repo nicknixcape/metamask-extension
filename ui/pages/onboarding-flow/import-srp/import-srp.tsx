@@ -136,10 +136,8 @@ export default function ImportSRP({
         <SrpInputForm
           error={srpError}
           setSecretRecoveryPhrase={handleSecretRecoveryPhraseChange}
-          onClearCallback={() => {
-            setSrpError('');
-            setShouldClearClipboard(false);
-          }}
+          onClearCallback={() => setSrpError('')}
+          onClearClipboardRetry={() => setShouldClearClipboard(false)}
           onClipboardClearFailed={() => setShouldClearClipboard(true)}
         />
       </Box>

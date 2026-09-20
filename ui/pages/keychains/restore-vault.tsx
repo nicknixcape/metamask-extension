@@ -203,10 +203,8 @@ function RestoreVaultPage() {
           <SrpInputForm
             error={srpError}
             setSecretRecoveryPhrase={setSecretRecoveryPhrase}
-            onClearCallback={() => {
-              setSrpError('');
-              setShouldClearClipboard(false);
-            }}
+            onClearCallback={() => setSrpError('')}
+            onClearClipboardRetry={() => setShouldClearClipboard(false)}
             onClipboardClearFailed={() => setShouldClearClipboard(true)}
             showDescription={false}
             toggleSrpDetailsModal={toggleSrpDetailsModal}

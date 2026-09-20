@@ -1,5 +1,6 @@
 import React from 'react';
 import { fireEvent, waitFor } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
 import { renderWithProvider } from '../../../../test/lib/render-helpers-navigate';
 import * as browserRuntime from '../../../../shared/lib/browser-runtime.utils';
 import {
@@ -174,5 +175,26 @@ describe('SrpInputImport', () => {
     await waitFor(() => {
       expect(onClipboardClearFailed).toHaveBeenCalledTimes(1);
     });
+  });
+
+  it('only clears a clipboard cleanup retry when the phrase is cleared', async () => {
+    const onClearClipboardRetry = jest.fn();
+    const { getByTestId, getByText } = renderWithProvider(
+      <SrpInputImport
+        onChange={jest.fn()}
+        onClearClipboardRetry={onClearClipboardRetry}
+      />,
+    );
+
+    await userEvent.type(
+      getByTestId('srp-input-import__srp-note'),
+      TEST_SEED_PHRASE,
+    );
+
+    expect(onClearClipboardRetry).not.toHaveBeenCalled();
+
+    fireEvent.click(getByText('Clear all'));
+
+    expect(onClearClipboardRetry).toHaveBeenCalledTimes(1);
   });
 });

@@ -135,10 +135,8 @@ export const ImportSrp = () => {
       <SrpInputForm
         error={srpError}
         setSecretRecoveryPhrase={setSecretRecoveryPhrase}
-        onClearCallback={() => {
-          setSrpError('');
-          setShouldClearClipboard(false);
-        }}
+        onClearCallback={() => setSrpError('')}
+        onClearClipboardRetry={() => setShouldClearClipboard(false)}
         onClipboardClearFailed={() => setShouldClearClipboard(true)}
       />
       <Box className="w-full cta-footer">

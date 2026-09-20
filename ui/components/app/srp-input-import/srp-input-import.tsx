@@ -49,12 +49,14 @@ type ListOfTextFieldRefs = {
 type SrpInputImportProps = {
   onChange: (srp: string) => void;
   onClearCallback?: () => void;
+  onClearClipboardRetry?: () => void;
   onClipboardClearFailed?: () => void;
 };
 
 export default function SrpInputImport({
   onChange,
   onClearCallback,
+  onClearClipboardRetry,
   onClipboardClearFailed,
 }: SrpInputImportProps) {
   const t = useI18nContext();
@@ -490,6 +492,7 @@ export default function SrpInputImport({
                 setDraftSrp([]);
                 setMisSpelledWords([]);
                 onClearCallback?.();
+                onClearClipboardRetry?.();
               }}
               size={ButtonSize.Md}
             >
