@@ -429,7 +429,7 @@ const MultichainPrivateKeyList = ({
     ): JSX.Element => {
       const privateKey = privateKeys[item.account.address];
       if (!privateKey) {
-        return <></>;
+        return <React.Fragment key={`${item.account.address}-${item.scope}`} />;
       }
       const rowId = `${item.account.address}-${item.scope}`;
 
