@@ -7,10 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Security
-
-- Removed the clipboard modification permission and added cleanup controls for copied Secret Recovery Phrases and private keys.
-
 ## [13.49.0]
 
 ### Added
