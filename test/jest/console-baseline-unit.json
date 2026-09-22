@@ -720,9 +720,6 @@
     "ui/pages/error-page/error-component.test.tsx": {
       "React: Act warnings (component updates not wrapped)": 2
     },
-    "ui/pages/keychains/restore-vault.test.tsx": {
-      "React: Act warnings (component updates not wrapped)": 6
-    },
     "ui/pages/multi-srp/import-srp/import-srp.test.tsx": {
       "React: Act warnings (component updates not wrapped)": 519
     },
