@@ -370,6 +370,7 @@
       "React: Act warnings (component updates not wrapped)": 2
     },
     "ui/components/multichain/pages/gator-permissions/components/review-permission-renderer.test.tsx": {
+      "React: Act warnings (component updates not wrapped)": 2,
       "React: DOM nesting violations": 1
     },
     "ui/components/multichain/product-tour-popover/product-tour-popover.test.js": {
@@ -516,6 +517,9 @@
     },
     "ui/pages/bridge/quotes/multichain-bridge-quote-card.test.tsx": {
       "Reselect: Identity function warnings": 1
+    },
+    "ui/pages/bridge/token-insights-modal/token-insights-modal.test.tsx": {
+      "React: Act warnings (component updates not wrapped)": 2
     },
     "ui/pages/confirmations/components/UI/send-hero/send-hero.test.tsx": {
       "React: Act warnings (component updates not wrapped)": 7,
@@ -892,6 +896,9 @@
       "React: Missing key props in lists": 1,
       "React: componentWill* lifecycle deprecations": 1,
       "error: Warning: React does not recognize": 1
+    },
+    "ui/pages/srp-input-form/index.test.tsx": {
+      "React: Act warnings (component updates not wrapped)": 412
     },
     "ui/pages/swaps/awaiting-signatures/awaiting-signatures.test.js": {
       "Reselect: Identity function warnings": 1

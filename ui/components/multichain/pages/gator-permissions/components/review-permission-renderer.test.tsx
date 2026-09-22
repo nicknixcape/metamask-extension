@@ -1,6 +1,5 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
-import { userEvent } from '@testing-library/user-event';
+import { fireEvent, screen } from '@testing-library/react';
 import { Settings } from 'luxon';
 import { renderWithProvider } from '../../../../../../test/lib/render-helpers-navigate';
 import { enLocale as messages } from '../../../../../../test/lib/i18n-helpers';
@@ -8,10 +7,6 @@ import configureStore from '../../../../../store/store';
 import mockState from '../../../../../../test/data/mock-state.json';
 import { ALL_METAMASK_FACILITATOR_ADDRESSES } from '../../../../../../shared/lib/gator-permissions';
 import { ReviewPermissionRenderer } from './review-permission-renderer';
-
-jest.mock('../../../../../hooks/useCopyToClipboard', () => ({
-  useCopyToClipboard: () => [false, jest.fn().mockResolvedValue(true)],
-}));
 
 const store = configureStore(mockState);
 
@@ -195,8 +190,7 @@ describe('ReviewPermissionRenderer', () => {
     ).not.toBeInTheDocument();
   });
 
-  it('does not open nickname popover from copy buttons', async () => {
-    const user = userEvent.setup();
+  it('does not open nickname popover from copy buttons', () => {
     const { unmount } = renderReviewPermissionRenderer({
       permissionType: 'native-token-periodic',
       permissionData: PERIODIC_PERMISSION_DATA,
@@ -205,14 +199,14 @@ describe('ReviewPermissionRenderer', () => {
       permissionAccount: ACCOUNT_ADDRESS,
     });
 
-    await user.click(screen.getByLabelText('copy-button'));
+    fireEvent.click(screen.getByLabelText('copy-button'));
     expect(screen.queryByTestId('nickname-popovers')).not.toBeInTheDocument();
     unmount();
 
     renderReviewPermissionRenderer({
       rules: [{ type: 'redeemer', data: { addresses: [RULE_ADDRESS] } }],
     });
-    await user.click(screen.getByLabelText('copy-button'));
+    fireEvent.click(screen.getByLabelText('copy-button'));
     expect(screen.queryByTestId('nickname-popovers')).not.toBeInTheDocument();
   });
 

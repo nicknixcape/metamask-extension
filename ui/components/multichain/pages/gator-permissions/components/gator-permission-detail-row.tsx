@@ -84,18 +84,14 @@ export const GatorPermissionDetailRow = ({
         alignItems={BoxAlignItems.Center}
       >
         <Skeleton hideChildren={isLoading} width="100px" height="16px">
-          {typeof value === 'string' ? (
-            <Text
-              variant={TextVariant.BodyMd}
-              color={TextColor.TextAlternative}
-              textAlign={TextAlign.Right}
-              data-testid={testId}
-            >
-              {value}
-            </Text>
-          ) : (
-            <Box data-testid={testId}>{value}</Box>
-          )}
+          <Text
+            variant={TextVariant.BodyMd}
+            color={TextColor.TextAlternative}
+            textAlign={TextAlign.Right}
+            data-testid={testId}
+          >
+            {value}
+          </Text>
         </Skeleton>
       </Box>
     </Box>
