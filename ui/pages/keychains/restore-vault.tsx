@@ -55,6 +55,7 @@ function RestoreVaultPage() {
 
   const [srpError, setSrpError] = useState('');
   const [secretRecoveryPhrase, setSecretRecoveryPhrase] = useState('');
+  const [shouldClearClipboard, setShouldClearClipboard] = useState(false);
   const [toggleSrpDetailsModal, setToggleSrpDetailsModal] = useState(false);
   const [showPasswordInput, setShowPasswordInput] = useState(false);
   const [showPasskeySetup, setShowPasskeySetup] = useState(false);
@@ -120,8 +121,13 @@ function RestoreVaultPage() {
   );
 
   const handleContinue = useCallback(() => {
+    if (shouldClearClipboard) {
+      navigator.clipboard.writeText('').catch(() => {
+        // Do not block vault restoration if clipboard access remains unavailable.
+      });
+    }
     setShowPasswordInput(true);
-  }, []);
+  }, [shouldClearClipboard]);
 
   const handleBack = useCallback(() => {
     if (loading) {
@@ -197,7 +203,11 @@ function RestoreVaultPage() {
           <SrpInputForm
             error={srpError}
             setSecretRecoveryPhrase={setSecretRecoveryPhrase}
-            onClearCallback={() => setSrpError('')}
+            onClearCallback={() => {
+              setSrpError('');
+              setShouldClearClipboard(false);
+            }}
+            onClipboardClearFailed={() => setShouldClearClipboard(true)}
             showDescription={false}
             toggleSrpDetailsModal={toggleSrpDetailsModal}
             onSrpDetailsModalClose={() => setToggleSrpDetailsModal(false)}
