@@ -7,6 +7,7 @@ import {
   PLATFORM_FIREFOX,
 } from '../../../../shared/constants/app';
 import { TEST_SEED_PHRASE } from '../../../../test/e2e/constants';
+import { enLocale as messages } from '../../../../test/lib/i18n-helpers';
 import SrpInputImport from './srp-input-import';
 
 const mockPermissionsRequest = jest.fn().mockResolvedValue(true);
@@ -192,12 +193,14 @@ describe('SrpInputImport', () => {
     });
 
     await waitFor(() => {
-      expect(getByText('Clear all')).toBeInTheDocument();
+      expect(
+        getByText(messages.onboardingSrpInputClearAll.message),
+      ).toBeInTheDocument();
     });
 
     expect(onClearClipboardRetry).not.toHaveBeenCalled();
 
-    fireEvent.click(getByText('Clear all'));
+    fireEvent.click(getByText(messages.onboardingSrpInputClearAll.message));
 
     expect(onClearClipboardRetry).toHaveBeenCalledTimes(1);
   });
