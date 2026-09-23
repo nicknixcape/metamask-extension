@@ -484,6 +484,9 @@
   "activity_marketShort_success_title": {
     "message": "Posição short fechada - mercado"
   },
+  "activity_moneyAccountDeposit_failed_title": {
+    "message": "Falha no depósito"
+  },
   "activity_nftBuy_failed_title": {
     "message": "Comprar falhou"
   },
@@ -3129,9 +3132,6 @@
   },
   "criticalErrorReinstallMetamask": {
     "message": "Reinstalar MetaMask"
-  },
-  "criticalErrorResetMetaMaskState": {
-    "message": "Redefinir estado da MetaMask"
   },
   "criticalErrorStillHavingIssues": {
     "message": "Ainda está com problemas?"
@@ -8689,9 +8689,6 @@
   "rampsChangeProviders": {
     "message": "altere o provedor",
     "description": "Inline link completing the sentence in rampsQuoteFetchError"
-  },
-  "rampsChooseProvider": {
-    "message": "Escolher provedor"
   },
   "rampsCompleteBuyTitle": {
     "message": "Compra concluída",

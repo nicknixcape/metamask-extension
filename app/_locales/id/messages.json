@@ -484,6 +484,9 @@
   "activity_marketShort_success_title": {
     "message": "Posisi short ditutup - pasar"
   },
+  "activity_moneyAccountDeposit_failed_title": {
+    "message": "Deposit gagal"
+  },
   "activity_nftBuy_failed_title": {
     "message": "Pembelian gagal"
   },
@@ -3129,9 +3132,6 @@
   },
   "criticalErrorReinstallMetamask": {
     "message": "Instal ulang MetaMask"
-  },
-  "criticalErrorResetMetaMaskState": {
-    "message": "Reset State MetaMask"
   },
   "criticalErrorStillHavingIssues": {
     "message": "Masih mengalami masalah?"
@@ -8697,9 +8697,6 @@
   "rampsChangeProviders": {
     "message": "ubah penyedia",
     "description": "Inline link completing the sentence in rampsQuoteFetchError"
-  },
-  "rampsChooseProvider": {
-    "message": "Pilih penyedia"
   },
   "rampsCompleteBuyTitle": {
     "message": "Selesaikan pembelian",

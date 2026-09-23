@@ -484,6 +484,9 @@
   "activity_marketShort_success_title": {
     "message": "Η θέση πώλησης έκλεισε – αγορά"
   },
+  "activity_moneyAccountDeposit_failed_title": {
+    "message": "Η κατάθεση απέτυχε"
+  },
   "activity_nftBuy_failed_title": {
     "message": "Η αγορά απέτυχε"
   },
@@ -3129,9 +3132,6 @@
   },
   "criticalErrorReinstallMetamask": {
     "message": "Εγκαταστήστε ξανά το MetaMask"
-  },
-  "criticalErrorResetMetaMaskState": {
-    "message": "Επαναφορά κατάστασης του MetaMask"
   },
   "criticalErrorStillHavingIssues": {
     "message": "Ακόμα αντιμετωπίζετε προβλήματα;"
@@ -8689,9 +8689,6 @@
   "rampsChangeProviders": {
     "message": "αλλαγή παρόχων",
     "description": "Inline link completing the sentence in rampsQuoteFetchError"
-  },
-  "rampsChooseProvider": {
-    "message": "Επιλέξτε πάροχο"
   },
   "rampsCompleteBuyTitle": {
     "message": "Ολοκλήρωση αγοράς",

@@ -484,6 +484,9 @@
   "activity_marketShort_success_title": {
     "message": "Đã đóng vị thế bán khống - giá thị trường"
   },
+  "activity_moneyAccountDeposit_failed_title": {
+    "message": "Nạp tiền thất bại"
+  },
   "activity_nftBuy_failed_title": {
     "message": "Mua thất bại"
   },
@@ -3129,9 +3132,6 @@
   },
   "criticalErrorReinstallMetamask": {
     "message": "Cài đặt lại MetaMask"
-  },
-  "criticalErrorResetMetaMaskState": {
-    "message": "Đặt lại trạng thái MetaMask"
   },
   "criticalErrorStillHavingIssues": {
     "message": "Vẫn gặp sự cố?"
@@ -8703,9 +8703,6 @@
   "rampsChangeProviders": {
     "message": "thay đổi nhà cung cấp",
     "description": "Inline link completing the sentence in rampsQuoteFetchError"
-  },
-  "rampsChooseProvider": {
-    "message": "Chọn nhà cung cấp"
   },
   "rampsCompleteBuyTitle": {
     "message": "Hoàn tất mua",

@@ -484,6 +484,9 @@
   "activity_marketShort_success_title": {
     "message": "Position courte fermée - marché"
   },
+  "activity_moneyAccountDeposit_failed_title": {
+    "message": "Le dépôt a échoué"
+  },
   "activity_nftBuy_failed_title": {
     "message": "Échec de l’achat"
   },
@@ -3126,9 +3129,6 @@
   },
   "criticalErrorReinstallMetamask": {
     "message": "Réinstallez MetaMask"
-  },
-  "criticalErrorResetMetaMaskState": {
-    "message": "Réinitialiser l’état de MetaMask"
   },
   "criticalErrorStillHavingIssues": {
     "message": "Vous rencontrez toujours des problèmes ?"
@@ -8686,9 +8686,6 @@
   "rampsChangeProviders": {
     "message": "changer de fournisseur",
     "description": "Inline link completing the sentence in rampsQuoteFetchError"
-  },
-  "rampsChooseProvider": {
-    "message": "Choisir un fournisseur"
   },
   "rampsCompleteBuyTitle": {
     "message": "Finaliser l'achat",

@@ -484,6 +484,9 @@
   "activity_marketShort_success_title": {
     "message": "Naisara ang short - market"
   },
+  "activity_moneyAccountDeposit_failed_title": {
+    "message": "Nabigo ang pagdeposito"
+  },
   "activity_nftBuy_failed_title": {
     "message": "Nabigo ang pagbili"
   },
@@ -3126,9 +3129,6 @@
   },
   "criticalErrorReinstallMetamask": {
     "message": "I-reinstall ang MetaMask"
-  },
-  "criticalErrorResetMetaMaskState": {
-    "message": "I-reset ang Estado ng MetaMask"
   },
   "criticalErrorStillHavingIssues": {
     "message": "Nakakaranas ka pa rin ng mga isyu?"
@@ -8623,9 +8623,6 @@
   },
   "rampsChangeProvider": {
     "message": "Magpalit ng provider."
-  },
-  "rampsChooseProvider": {
-    "message": "Pumili ng provider"
   },
   "rampsCompleteBuyTitle": {
     "message": "Kumpletuhin ang pagbili",

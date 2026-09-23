@@ -484,6 +484,9 @@
   "activity_marketShort_success_title": {
     "message": "Короткая позиция закрыта — рынок"
   },
+  "activity_moneyAccountDeposit_failed_title": {
+    "message": "Ошибка депозита"
+  },
   "activity_nftBuy_failed_title": {
     "message": "Ошибка покупки"
   },
@@ -3126,9 +3129,6 @@
   },
   "criticalErrorReinstallMetamask": {
     "message": "Переустановите MetaMask"
-  },
-  "criticalErrorResetMetaMaskState": {
-    "message": "Сброс состояния MetaMask"
   },
   "criticalErrorStillHavingIssues": {
     "message": "Проблема не устранена?"
@@ -8683,9 +8683,6 @@
   "rampsChangeProviders": {
     "message": "сменить провайдеров",
     "description": "Inline link completing the sentence in rampsQuoteFetchError"
-  },
-  "rampsChooseProvider": {
-    "message": "Выберите провайдера"
   },
   "rampsCompleteBuyTitle": {
     "message": "Завершение покупки",

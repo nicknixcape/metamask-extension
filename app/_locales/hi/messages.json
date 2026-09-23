@@ -484,6 +484,9 @@
   "activity_marketShort_success_title": {
     "message": "शॉर्ट क्लोज़ किया जा रहा है - मार्केट क्लोज़"
   },
+  "activity_moneyAccountDeposit_failed_title": {
+    "message": "डिपॉज़िट नहीं हो पाया"
+  },
   "activity_nftBuy_failed_title": {
     "message": "खरीदना नहीं हो पाया"
   },
@@ -3129,9 +3132,6 @@
   },
   "criticalErrorReinstallMetamask": {
     "message": "MetaMask को दोबारा इंस्टॉल करें"
-  },
-  "criticalErrorResetMetaMaskState": {
-    "message": "MetaMask स्टेट रीसेट करें"
   },
   "criticalErrorStillHavingIssues": {
     "message": "अभी भी समस्या आ रही है?"
@@ -8689,9 +8689,6 @@
   "rampsChangeProviders": {
     "message": "प्रोवाइडर बदलें",
     "description": "Inline link completing the sentence in rampsQuoteFetchError"
-  },
-  "rampsChooseProvider": {
-    "message": "प्रदाता चुनें"
   },
   "rampsCompleteBuyTitle": {
     "message": "खरीदारी पूरी करें",
