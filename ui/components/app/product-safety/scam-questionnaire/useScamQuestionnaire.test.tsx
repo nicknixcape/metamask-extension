@@ -93,18 +93,19 @@ function setupSendBranch({
 function setupDomainBranch({
   origin = 'https://aurum.foundation',
   scamDomains = ['aurum.foundation'],
+  useWrappedFlagValue = false,
 }: {
   origin?: string;
   scamDomains?: string[];
+  useWrappedFlagValue?: boolean;
 } = {}) {
   const setAlertConfirmed = jest.fn();
   const onCancel = jest.fn();
 
   mockUseSelector.mockReturnValue({
-    [SCAM_QUESTIONNAIRE_FLAG_KEY]: {
-      name: ABTestVariant.Control,
-      value: scamDomains,
-    },
+    [SCAM_QUESTIONNAIRE_FLAG_KEY]: useWrappedFlagValue
+      ? { name: ABTestVariant.Treatment, value: scamDomains }
+      : scamDomains,
   });
 
   mockUseABTest.mockReturnValue({
@@ -261,6 +262,11 @@ describe('useScamQuestionnaire', () => {
     describe('isScamQuestionnaireRequired', () => {
       it('is true for a dapp-initiated tx from a listed scam domain', () => {
         const { result } = setupDomainBranch();
+        expect(result.current.isScamQuestionnaireRequired).toBe(true);
+      });
+
+      it('is true when the domain list uses the legacy wrapped flag value', () => {
+        const { result } = setupDomainBranch({ useWrappedFlagValue: true });
         expect(result.current.isScamQuestionnaireRequired).toBe(true);
       });
 
